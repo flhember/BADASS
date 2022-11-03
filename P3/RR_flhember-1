@@ -1,0 +1,40 @@
+# run vtysh to open frrouting shell and go to config mod 
+vtysh
+config t
+
+hostname RR_flhember-1	                # routeur name
+no ipv6 forwarding                      # ? 
+
+#Setup interface eth0
+interface eth0                          # Enter in eth0 config interface
+ip address 10.1.1.1/30                  # give an ip
+
+#Setup interface eth1
+interface eth1                          # Enter in eth1 config interface
+ip address 10.1.1.5/30                  # give an ip
+
+#Setup interface eth2
+interface eth2                          # Enter in eth2 config interface
+ip address 10.1.1.9/30                  # give an ip
+
+#Setup interface lo
+interface lo                            # Enter in lo config interface
+ip address 1.1.1.1/32                   # give an ip
+
+# Setup bgp
+router bgp 1				# Enter in bgp mode with a AS (Autonomous System) number	
+neighbor ibgp peer-group
+neighbor ibgp remote-as 1
+neighbor ibgp update-source lo
+bgp listen range 1.1.1.0/29 peer-group ibgp
+
+# Setup evpn
+address-family l2vpn evpn
+neighbor ibgp activate
+neighbor ibgp route-reflector-client
+exit-address-family
+
+router ospf
+network 0.0.0.0/0 area 0
+
+line vty

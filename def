@@ -1,0 +1,76 @@
+--------------------OSI--------------------
+
+Couche 3, couche reseau.
+Elle ajoute toutes les informations en rapport avec le routage, dont notamment l’adresse IP
+du destinataire.
+
+Couche 2, couche de liaison.
+Elle transforme la couche logique en une liaison physique (ip -> mac)
+Elle fragmente les données en plusieurs trames, qui sont envoyées une par une dans un réseau
+local.
+Si la transmition est au dela d'un reseau local la couche ne change pas la liaison et laisse la
+liaison logique (ip)
+
+--------------------Def--------------------
+
+GNS3:
+Logiciel d'emulation ou de simulation de reseaux.
+
+BGP:
+protocole de routage externe, utilise par des groupes de routeurs sur internet pour partager des
+info de routage.
+
+OSPF:
+Protocole de routage interne, OSPF (Open Shortest Path First) détermine le meilleur chemin 
+que peuvent emprunter des paquets.
+
+Logiciel de routage de paquet ZEBRA:
+Logiciel qui intercepte et analyse le trafic reseau.
+Permet d'identifier / depannage du reseau par type d'application / source / destination.
+
+Moteur de routage demande ISIS:
+Un moteur de routage permet de trouver le meilleur chemin pour les paquets.
+IS-IS est le moteur demande par le sujet, Il utilise un protocole de routage
+reseau OSI et n'utilise pas Ip contrairement a OSPF
+
+BusyBox:
+BusyBox est un logiciel qui implemente un grand nombre des commandes standard d'Unix.
+Il contient plus de 200 programmes en un seul fichier exécutable.
+Ca lui permet de diminuer la taille de manière considérable ce qui le rend très adapté 
+aux distributions Linux utilisées sur les systèmes embarqués.
+
+Switch:
+Un switch est un boitier avec plusieur ports ethernet qui sert à relier en réseau
+différents éléments du système informatique.
+Il repartie les informations de maniere "intelligente" en se basant sur l'adresse MAC,
+ainsi seuls les appareils concernes recevront l'information, a l'inverse du hub qui
+transmet a l'ensemble des appareils actifs sur le reseau local.
+
+Vlan:
+Virtual LAN, c'est un moyen de segmenter de maniere logique un reseau Eth.
+Un switch peut creer virtuellement des sous-reseaux etanches qui ne peuvent pas
+communiquer entre eux.
+Il colle une etiquette/tag avec un numero sur certains ports (du switch).
+Si un telephone fixe est etiquete avec "VLAN 42" et un pc avec "VLAN 12" il ne pourrons
+pas communiquer ensemble.
+
+https://zestedesavoir.com/tutoriels/2789/les-reseaux-de-zero/on-touche-le-fond/quest-ce-qui-se-trame-chez-ethernet/
+
+Vxlan:
+Virtual Extensible LAN, est une amelioration du vlan.
+Le vlan fonctionne sur la couche2 du modele osi, donc seulement sur un reseau local avec adresse mac.
+Le vxlan lui fonctionne sur la couche3, qui resoud l'impossibilite de router des vlan.
+Le vlan est code sur 12 bits qui limite la creation de vlan a 4096, le vxlan lui est code sur
+24bits, ce qui lui permet de creer jusqu'a 16millions de vxlan.
+
+Bridge:
+Dispositif permettant de relier des reseaux travaillant avec le meme protocole.
+Il intervient sur la couche 2 du reseau.
+
+Broadcast:
+Un broadcast dans un réseau informatique est un message qui est transmis à tous les participants
+d'un réseau et qui ne nécessite pas de réponse.
+
+Multicast:
+Le multicast dans un reseau informatique est un message qui est transmis uniquement
+aux destinataires prevus

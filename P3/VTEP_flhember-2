@@ -1,0 +1,41 @@
+# create bridge with br0 name
+ip link add br0 type bridge
+# set up the bridge
+ip link set dev br0 up
+# create vxlan with id 10 and good port
+ip link add vxlan10 type vxlan id 10 dstport 4789
+# set up the vxlan
+ip link set dev vxlan10 up
+# add vxlan and eth1 to the bridge
+brctl addif br0 vxlan10
+brctl addif br0 eth1
+
+# run vtysh to open frrouting shell and go to config mod 
+vtysh
+config t
+
+hostname VTEP_flhember-2		# routeur name
+no ipv6 forwarding			# ? 
+
+#Setup interface eth0
+interface eth0				# Enter in eth0 config interface
+ip address 10.1.1.2/30			# give an ip
+ip ospf area 0				# Put this router in backbone zone (area 0)
+
+#Setup interface lo
+interface lo				# Enter in lo config interface
+ip address 1.1.1.2/32			# give an ip
+ip ospf area 0				# Put this router in backbone zone (area 0)
+
+# Setup bgp
+router bgp 1				# Enter in bgp mode with a AS (Autonomous System) number
+neighbor 1.1.1.1 remote-as 1		# give neighbor ip (RR) and AS number
+neighbor 1.1.1.1 update-source lo	# Give lo to communicate with 1.1.1.1 ?? 
+
+# Setup evpn
+address-family l2vpn evpn	# to create the BGP EVPN address family and enter its view or just enter
+neighbor 1.1.1.1 activate	# enables the capability and exchange of information specific to an BGP neighbor. 
+advertise-all-vni 		# enable the BGP control plane for all VNIs configured
+exit-address-family		# exit the address family conf
+
+router ospf			# ? 
